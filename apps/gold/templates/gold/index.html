@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ninja Gold</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'gold/styles.css' %}"> 
+    </head>
+    <body>
+        <div id="wrapper">
+        <header>
+            <h3>Your Gold: </h3>
+            <div class="money">{{request.session.gold}}</div>
+        </header>
+
+        <div class="location">
+            <h2>Farm</h2>
+            <p>(earns 10-20 gold)</p>
+            <form action='/process_money' method="post">{% csrf_token %}
+                <input name="location" value ="farm" type="hidden" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+        <div class="location">
+            <h2>Cave</h2>
+            <p>(earns 5-10 gold)</p>
+            <form action='/process_money' method="post">{% csrf_token %}
+                <input name="location" value ="cave" type="hidden" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+        <div class="location">
+            <h2>Home</h2>
+            <p>(earns 2-5 gold)</p>
+            <form action='/process_money' method="post">{% csrf_token %}
+                <input name="location" value ="home" type="hidden" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+
+        <div class="location">
+            <h2>Casino</h2>
+            <p>(earns/takes 0-50 gold)</p>
+            <form action='/process_money' method="post">{% csrf_token %}
+                <input name="location" value ="casino" type="hidden" />
+                <input type="submit" value="Find Gold!" />
+            </form>
+        </div>
+
+        <p>Activites: </p>
+        <div class="activities">
+            <p>{{request.session.activity | safe}}</p>
+        </div>
+
+        <form action="/reset" method="POST">
+            <input type="submit" value="Restart">
+        </form>
+        </div>
+    </body>
+</html>
